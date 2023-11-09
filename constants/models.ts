@@ -19,13 +19,13 @@ export const Models = [
     recommended: true,
     price: { input: 0.01, output: 0.03 },
   },
-  {
-    label: "gpt-4-turbo(1106-vision-preview)",
-    value: "gpt-4-vision",
-    base: "gpt-4",
-    recommended: true,
-    price: { input: 0.01, output: 0.03 },
-  },
+  // {
+  //   label: "gpt-4-turbo(1106-vision-preview)",
+  //   value: "gpt-4-vision",
+  //   base: "gpt-4",
+  //   recommended: true,
+  //   price: { input: 0.01, output: 0.03 },
+  // },
   {
     label: "gpt-4",
     value: "gpt-4",

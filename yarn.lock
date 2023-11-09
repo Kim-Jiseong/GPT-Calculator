@@ -5124,7 +5124,7 @@
     "uuidv4" "3.0.1"
     "ws" "6.2.0"
 
-"tailwindcss@*":
+"tailwindcss@*", "tailwindcss@^3.3.5":
   "integrity" "sha512-5SEZU4J7pxZgSkv7FP1zY8i2TIAOooNZ1e/OGtxIEv6GltpoiXUqWvLy89+a10qYTB1N5Ifkuw9lqQkN9sscvA=="
   "resolved" "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.3.5.tgz"
   "version" "3.3.5"
