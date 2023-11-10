@@ -18,7 +18,7 @@ export const PromptContainer = styled.div<{ $ismobile: boolean }>`
   display: flex;
   padding: 1.25rem 0;
   flex-direction: column;
-  gap: 1.68rem;
+  gap: 1.25rem;
   flex-shrink: 0;
 `;
 export const PriceContainer = styled.div<{ $ismobile: boolean }>`

@@ -103,8 +103,8 @@ const Home: NextPage = () => {
           ))}
         </Autocomplete>
         <Textarea
-          minRows={28}
-          maxRows={28}
+          minRows={30}
+          maxRows={30}
           label="Prompt"
           placeholder="Enter your Prompt"
           onChange={handleChange}
