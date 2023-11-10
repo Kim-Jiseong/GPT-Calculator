@@ -1,9 +1,9 @@
-import { Input, Tab, Tabs, Textarea } from "@nextui-org/react";
+import { Button, Input, Tab, Tabs, Textarea, Tooltip } from "@nextui-org/react";
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { promptTextAtom, selectedModelAtom } from "recoil/atoms";
 import { styled } from "styled-components";
-
+import { Clipboard } from "lucide-react";
 const priceList = [
   {
     name: "Input",
@@ -20,12 +20,24 @@ function PricingContainer({ tokens }: { tokens: any }) {
   const [selectedModel, setSelectedModel] = useRecoilState(selectedModelAtom);
   const [promptText, setPromptText] = useRecoilState(promptTextAtom);
   const [count, setCount] = useState<any>(1);
+  const [tokenLength, setTokenLength] = useState<any>(0);
+
   const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLInputElement>(null);
+
+  const [copiedTooltipOpen, setCopiedTooltipOpen] = useState(false);
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.style.width = `${count.length + 1}ch`;
     }
   }, [count]);
+
+  useEffect(() => {
+    if (tokens) {
+      setTokenLength(tokens.length);
+    }
+  }, [tokens]);
 
   const calcPrice = (tokenLength: number, type: string): string => {
     let price;
@@ -48,6 +60,24 @@ function PricingContainer({ tokens }: { tokens: any }) {
     return price.toFixed(4);
   };
 
+  const handleManualToken = (tokenLength: string) => {
+    console.log(tokenLength);
+    if (tokenLength) {
+      setTokenLength(tokenLength);
+    } else {
+      setTokenLength(tokens.length);
+    }
+  };
+
+  const copyToClipboard = () => {
+    const textarea = textareaRef.current;
+
+    if (textarea) {
+      textarea.select();
+      document.execCommand("copy");
+    }
+    setCopiedTooltipOpen(true);
+  };
   return (
     <Container key={selectedModel.value}>
       <DataWrapper>
@@ -56,7 +86,13 @@ function PricingContainer({ tokens }: { tokens: any }) {
       </DataWrapper>
       <DataWrapper>
         <SubTitle> Tokens: </SubTitle>
-        <p>{tokens ? tokens.length : "No Data"}</p>
+        <Input
+          type="number"
+          isClearable
+          placeholder="0"
+          value={tokens ? tokenLength : "No Data"}
+          onValueChange={handleManualToken}
+        />
       </DataWrapper>
       <DataWrapper>
         <SubTitle>
@@ -93,7 +129,7 @@ function PricingContainer({ tokens }: { tokens: any }) {
                     <span className="text-default-400 text-small">$</span>
                   </div>
                 }
-                value={calcPrice(tokens.length, content.name)}
+                value={calcPrice(tokenLength, content.name)}
                 endContent={
                   //   <div className="flex items-center">
                   //     <label className="sr-only" htmlFor="currency">
@@ -118,34 +154,51 @@ function PricingContainer({ tokens }: { tokens: any }) {
             ))}
           </PriceWrapper>
         )}
-        {/* {tokens && (
-          <p>
-            Input: {calcPrice(tokens.length, "input")} <br /> Output:{" "}
-            {calcPrice(tokens.length, "output")}
-            <br />
-            Avg: {calcPrice(tokens.length, "avg")}
-          </p>
-        )} */}
       </DataWrapper>
       <DataWrapper>
-        <Tabs color={"primary"} style={{ fontWeight: 600 }}>
-          <Tab key="TOKEN IDS" title="TOKEN IDS">
-            <Textarea
-              readOnly
-              minRows={10}
-              maxRows={10}
-              value={tokens ? "[" + tokens.join(", ") + "]" : "No Data"}
-            />
-          </Tab>
-          <Tab key="TEXT" title="TEXT">
-            <Textarea
-              readOnly
-              minRows={10}
-              maxRows={10}
-              value={promptText ? promptText : "No Data"}
-            />
-          </Tab>
-        </Tabs>
+        <div style={{ position: "relative" }}>
+          <Tooltip
+            isOpen={copiedTooltipOpen}
+            onOpenChange={(open) => {
+              setCopiedTooltipOpen(false);
+            }}
+            content="Copied!"
+          >
+            <Button
+              size="sm"
+              isIconOnly
+              onClick={copyToClipboard}
+              style={{
+                position: "absolute",
+                right: "1rem",
+                bottom: "2rem",
+                zIndex: "2",
+              }}
+            >
+              <Clipboard size={16} />
+            </Button>
+          </Tooltip>
+          <Tabs color={"primary"} style={{ fontWeight: 600 }}>
+            <Tab key="TOKEN IDS" title="TOKEN IDS">
+              <Textarea
+                ref={textareaRef}
+                readOnly
+                minRows={10}
+                maxRows={10}
+                value={tokens ? "[" + tokens.join(", ") + "]" : "No Data"}
+              />
+            </Tab>
+            <Tab key="TEXT" title="TEXT">
+              <Textarea
+                ref={textareaRef}
+                readOnly
+                minRows={10}
+                maxRows={10}
+                value={promptText ? promptText : "No Data"}
+              />
+            </Tab>
+          </Tabs>
+        </div>
       </DataWrapper>
     </Container>
   );

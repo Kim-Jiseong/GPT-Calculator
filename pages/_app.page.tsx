@@ -48,13 +48,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="Optimize your OpenAI usage with our accurate token and image price calculator. Determine costs for prompts and photos in a snap!"
         />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content="http://www.yourwebsite.com/ultimate-calculator"
-        />
+        <meta property="og:url" content="https://ultimategptcaculator.com" />
         <meta
           property="og:image"
-          content="http://www.yourwebsite.com/images/og-image-calculator.jpg"
+          content="https://ultimategptcaculator.com/thumbnail.png"
         />
         <meta
           property="og:site_name"
@@ -67,11 +64,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <meta
           name="twitter:title"
-          content="Ultimate Token and Price Calculator for OpenAI Models"
+          content="Ultimate Token and Price Calculator for GPT"
         />
         <meta
           name="twitter:image"
-          content="http://www.yourwebsite.com/images/twitter-image-calculator.jpg"
+          content="https://ultimategptcaculator.com/thumbnail.png"
         />
         <meta name="twitter:site" content="@YourTwitterHandle" />
         <meta name="twitter:creator" content="@YourTwitterHandle" />
