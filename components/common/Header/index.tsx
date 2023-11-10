@@ -11,13 +11,13 @@ function Header() {
     <HeaderContainer>
       <h1>OpenAI API Pricing & Token calculator</h1>
       <Button
-        size="md"
+        size="sm"
         isIconOnly
         onClick={() =>
           setThemeMode((prev) => (prev === "dark" ? "light" : "dark"))
         }
       >
-        {themeMode === "dark" ? <Moon size={18} /> : <Sun size={18} />}
+        {themeMode === "dark" ? <Moon size={16} /> : <Sun size={16} />}
       </Button>
     </HeaderContainer>
   );
