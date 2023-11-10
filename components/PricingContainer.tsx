@@ -90,6 +90,7 @@ function PricingContainer({ tokens }: { tokens: any }) {
           type="number"
           isClearable
           placeholder="0"
+          min={0}
           value={tokens ? tokenLength : "No Data"}
           onValueChange={handleManualToken}
         />
