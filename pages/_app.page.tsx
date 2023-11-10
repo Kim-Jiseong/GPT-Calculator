@@ -12,6 +12,8 @@ import Head from "next/head";
 import Header from "components/common/Header";
 // import { queryClient } from "@/pages/api/axios";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Analytics } from "@vercel/analytics/react";
+
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
@@ -97,6 +99,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         {/* End Google tag (gtag.js) */}
         <Header />
         <Component {...pageProps} />
+        <Analytics />
         <Footer />
       </Providers>
     </RecoilRoot>
